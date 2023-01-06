@@ -7,6 +7,8 @@ import { ChakraProvider } from '@chakra-ui/react';
 import { ColorModeScript } from '@chakra-ui/react'
 import theme from './theme'
 
+import { BrowserRouter } from 'react-router-dom';
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -14,7 +16,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <ChakraProvider>
     <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </ChakraProvider>
 );
 
