@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
@@ -10,7 +10,7 @@ import Statistics from './pages/Statistics';
 
 function App() {
   return (
-    <Box>
+    <Flex border="1px" direction="column" minHeight="100vh">
       <Navbar />
       <Box>
         <Routes>
@@ -21,7 +21,7 @@ function App() {
         </Routes>
       </Box>
       <Footer />
-    </Box>
+    </Flex>
   );
 }
 
