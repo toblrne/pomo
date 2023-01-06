@@ -1,8 +1,22 @@
-import * as React from 'react';
+import { Flex } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
+
+const Footer= () => {
+    return (
+        <Flex>
+            <Link to="/">
+                Home
+            </Link>
+            <Link to="/statistics">
+                Statistics
+            </Link>
+            <Link to="/settings">
+                Settings
+            </Link>
+        </Flex>
 
 
-const Footer = () => {
-    return ( <div> Footer </div> );
+    );
 }
- 
+
 export default Footer;

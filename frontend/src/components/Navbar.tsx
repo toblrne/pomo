@@ -1,7 +1,15 @@
-import * as React from 'react';
+import { Flex } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
-    return ( <div> Footer </div> );
+    return (
+        <Flex>
+            Pomo
+            Login
+        </Flex>
+
+
+    );
 }
- 
+
 export default Navbar;
