@@ -44,6 +44,8 @@ const Pomodoro = ({ seconds }: PomodoroProps) => {
         }
     }
 
+    
+
     return (
         <Flex fontSize="72px" fontWeight="medium" align="center" direction="column">
             <Box mb="15px">
@@ -58,7 +60,7 @@ const Pomodoro = ({ seconds }: PomodoroProps) => {
                 />
             </Box>
             <Button colorScheme='teal' size='lg' mb="10px" onClick={handleStart}> START </Button>
-            <Button colorScheme='teal' size='lg' mb="10px" onClick={handlePause}> PAUSE </Button>
+            <Button colorScheme='teal' size='lg' mb="10px" onClick={handlePause}> PAUSE </Button> 
         </Flex>
     );
 }
