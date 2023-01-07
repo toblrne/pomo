@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Flex, Box, Tab, TabList, TabPanel, TabPanels, Tabs, Button } from "@chakra-ui/react"
-import Countdown from '../components/Countdown';
+import Pomodoro from '../components/Pomodoro';
 
 const Home = () => {
 
@@ -15,15 +15,7 @@ const Home = () => {
                 </TabList>
                 <TabPanels display="flex" justifyContent="center">
                     <TabPanel>
-                        <Flex fontSize="72px" fontWeight="medium" align="center" direction="column">
-                            <Box mb="15px">
-                                25:00
-                            </Box>
-                            <Button colorScheme='teal' size='lg' mb="10px">
-                                START
-                            </Button>
-                        </Flex>
-
+                        <Pomodoro seconds={500}/>
                     </TabPanel>
                     <TabPanel>
                         <Box fontSize="72px" fontWeight="medium">5:00</Box>
