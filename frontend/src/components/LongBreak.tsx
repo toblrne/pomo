@@ -9,11 +9,11 @@ const LongBreak = ({ minutes }: { minutes: number}) => {
 
     const [showButton, setShowButton] = useState<boolean>(true)
 
-    const { time, start, pause, reset } = useTimer({ initialTime: minutes * 60, timerType: 'DECREMENTAL' })
+    const { time, start, pause, reset } = useTimer({ initialTime: minutes * 60, timerType: 'DECREMENTAL', endTime: 0 })
 
     return (
-        <Flex fontSize="72px" fontWeight="medium" align="center" direction="column">
-            <Box mb="15px">
+        <Flex align="center" direction="column">
+            <Box mb="15px" fontSize="72px" fontWeight="medium">
                 {useFormat(time)}
             </Box>
             <Box onClick={() => setShowButton(prev => !prev)} display={showButton ? "flex" : "none"}>

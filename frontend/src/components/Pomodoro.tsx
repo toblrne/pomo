@@ -4,27 +4,44 @@ import { useTimer } from 'use-timer'
 import { useState } from 'react'
 import { useFormat } from '../hooks/useFormat';
 
+import { RxReload } from 'react-icons/rx'
 
 
-
-
-const Pomodoro = ({ minutes }: { minutes: number}) => {
+const Pomodoro = ({ minutes }: { minutes: number }) => {
 
     const [showButton, setShowButton] = useState<boolean>(true)
 
-    const { time, start, pause, reset } = useTimer({ initialTime: minutes * 60, timerType: 'DECREMENTAL' })
+    const { time, start, pause, reset } = useTimer({ initialTime: minutes * 60, timerType: 'DECREMENTAL', endTime: 0 })
+
+    const handleReset = () => {
+        reset()
+        setShowButton(prev => !prev)
+    }
 
     return (
-        <Flex fontSize="72px" fontWeight="medium" align="center" direction="column">
-            <Box mb="15px">
+        <Flex align="center" direction="column">
+            <Box mb="15px" fontSize="72px" fontWeight="medium">
                 {useFormat(time)}
             </Box>
-            <Box onClick={() => setShowButton(prev => !prev)} display={showButton ? "flex" : "none"}>
-                <Button colorScheme='teal' size='lg' mb="10px" onClick={start}> START </Button>
-            </Box>
-            <Box onClick={() => setShowButton(prev => !prev)} display={showButton ? "none" : "flex"}>
-                <Button colorScheme='teal' size='lg' mb="10px" onClick={pause}> PAUSE </Button>
-            </Box>
+            <Flex align="center" gap="12px">
+
+                <Box minH="56px" minW="56px">    
+                </Box>
+
+                <Box onClick={() => setShowButton(prev => !prev)} display={showButton ? "flex" : "none"}>
+                    <Button colorScheme='teal' size='lg' mb="10px" onClick={start}> START </Button>
+                </Box>
+                <Box onClick={() => setShowButton(prev => !prev)} display={showButton ? "none" : "flex"}>
+                    <Button colorScheme='teal' size='lg' mb="10px" onClick={pause}> PAUSE </Button>
+                </Box>
+
+                <Box pl="12px" pb="12px" _hover={{color: "black"}} color="#777777">
+                    <Button onClick={handleReset}> <RxReload size={24} /> </Button>
+                </Box>
+
+            </Flex>
+
+
         </Flex>
     );
 }
