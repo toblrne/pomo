@@ -2,8 +2,13 @@ import * as React from 'react';
 
 import { Flex, Box, Tab, TabList, TabPanel, TabPanels, Tabs, Button } from "@chakra-ui/react"
 import Pomodoro from '../components/Pomodoro';
+import LongBreak from '../components/LongBreak';
+import ShortBreak from '../components/ShortBreak';
 
-const Home = ({ pomodoroTimer } : {pomodoroTimer : number}) => {
+
+const Home = ({ pomodoroTimer, shortBreak, longBreak }: { pomodoroTimer: number, shortBreak: number, longBreak: number }) => {
+
+    
 
     return (
         <Flex direction="column" align="center" justify="center" border="1px" m="25px" borderRadius="12px" py="10px">
@@ -15,13 +20,13 @@ const Home = ({ pomodoroTimer } : {pomodoroTimer : number}) => {
                 </TabList>
                 <TabPanels display="flex" justifyContent="center">
                     <TabPanel>
-                        <Pomodoro minutes={pomodoroTimer}/>
+                        <Pomodoro minutes={pomodoroTimer} />
                     </TabPanel>
                     <TabPanel>
-                        <Box fontSize="72px" fontWeight="medium">5:00</Box>
+                        <ShortBreak minutes={shortBreak} />
                     </TabPanel>
                     <TabPanel>
-                        <Box fontSize="72px" fontWeight="medium">10:00</Box>
+                        <LongBreak minutes={longBreak}/>
                     </TabPanel>
                 </TabPanels>
             </Tabs>

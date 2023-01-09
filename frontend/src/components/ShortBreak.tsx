@@ -5,10 +5,13 @@ import { useState } from 'react'
 import { useFormat } from '../hooks/useFormat';
 
 
+type RendererProps = {
+    hours: number
+    minutes: number
+    seconds: number
+}
 
-
-
-const Pomodoro = ({ minutes }: { minutes: number}) => {
+const ShortBreak = ({ minutes }: { minutes: number }) => {
 
     const [showButton, setShowButton] = useState<boolean>(true)
 
@@ -29,4 +32,4 @@ const Pomodoro = ({ minutes }: { minutes: number}) => {
     );
 }
 
-export default Pomodoro; 
+export default ShortBreak; 

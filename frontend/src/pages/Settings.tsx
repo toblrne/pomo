@@ -4,9 +4,13 @@ import { Box, Button, Flex, FormControl, FormHelperText, FormLabel, Input, useCo
 type SettingsProps = {
     pomodoroTimer: number | undefined
     setPomodoroTimer: (value: number) => void
+    shortBreak: number | undefined
+    setShortBreak: (value: number) => void
+    longBreak: number | undefined
+    setLongBreak: (value: number) => void
 }
 
-const Settings = ({ pomodoroTimer, setPomodoroTimer }: SettingsProps) => {
+const Settings = ({ pomodoroTimer, setPomodoroTimer, shortBreak, setShortBreak, longBreak, setLongBreak }: SettingsProps) => {
 
     const { colorMode, toggleColorMode } = useColorMode()
 
@@ -22,12 +26,12 @@ const Settings = ({ pomodoroTimer, setPomodoroTimer }: SettingsProps) => {
 
                 <FormControl>
                     <FormLabel>Short Break</FormLabel>
-                    <Input type='number' variant="filled"/>
+                    <Input type='number' variant="filled" value={shortBreak || ''} onChange={(e) => setShortBreak(Number(e.target.value)) }/>
                 </FormControl>
 
                 <FormControl>
                     <FormLabel>Long Break</FormLabel>
-                    <Input type='number' variant="filled"/>
+                    <Input type='number' variant="filled" value={longBreak || ''} onChange={(e) => setLongBreak(Number(e.target.value)) }/>
                 </FormControl>
             </Flex>
 

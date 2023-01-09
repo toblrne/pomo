@@ -13,15 +13,17 @@ import { useState } from 'react'
 function App() {
 
   const [pomodoroTimer, setPomodoroTimer] = useState<number>(25)
+  const [shortBreak, setShortBreak] = useState<number>(5)
+  const [longBreak, setLongBreak] = useState<number>(15)
 
   return (
     <Flex border="1px" direction="column" minHeight="100vh">
       <Navbar />
       <Box>
         <Routes>
-          <Route path="/" element={<Home pomodoroTimer={pomodoroTimer}/>} />
+          <Route path="/" element={<Home pomodoroTimer={pomodoroTimer} shortBreak={shortBreak} longBreak={longBreak}/>} />
           <Route path="/statistics" element={<Statistics />} />
-          <Route path="/settings" element={<Settings pomodoroTimer={pomodoroTimer} setPomodoroTimer={setPomodoroTimer} />} />
+          <Route path="/settings" element={<Settings pomodoroTimer={pomodoroTimer} setPomodoroTimer={setPomodoroTimer} shortBreak={shortBreak} setShortBreak={setShortBreak} longBreak={longBreak} setLongBreak={setLongBreak}/>} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Box>
