@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Flex, Box, Tab, TabList, TabPanel, TabPanels, Tabs, Button } from "@chakra-ui/react"
 import Pomodoro from '../components/Pomodoro';
 
-const Home = () => {
+const Home = ({ pomodoroTimer } : {pomodoroTimer : number}) => {
 
     return (
         <Flex direction="column" align="center" justify="center" border="1px" m="25px" borderRadius="12px" py="10px">
@@ -15,7 +15,7 @@ const Home = () => {
                 </TabList>
                 <TabPanels display="flex" justifyContent="center">
                     <TabPanel>
-                        <Pomodoro seconds={500}/>
+                        <Pomodoro minutes={pomodoroTimer}/>
                     </TabPanel>
                     <TabPanel>
                         <Box fontSize="72px" fontWeight="medium">5:00</Box>

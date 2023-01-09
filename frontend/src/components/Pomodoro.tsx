@@ -4,7 +4,7 @@ import { useTimer } from 'use-timer'
 import { useRef, useState } from 'react'
 
 type PomodoroProps = {
-    seconds: number
+    minutes: number
 }
 
 type RendererProps = {
@@ -13,11 +13,11 @@ type RendererProps = {
     seconds: number
 }
 
-const Pomodoro = ({ seconds }: PomodoroProps) => {
+const Pomodoro = ({ minutes }: PomodoroProps) => {
 
     const [showButton, setShowButton] = useState<boolean>(true)
 
-    const { time, start, pause, reset } = useTimer({ initialTime: 100, timerType: 'DECREMENTAL' })
+    const { time, start, pause, reset } = useTimer({ initialTime: minutes * 60, timerType: 'DECREMENTAL' })
 
     const formatTime = (time: number) => {
         let minutes: number | string = Math.floor(time / 60)
