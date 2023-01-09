@@ -1,6 +1,6 @@
 import { Flex, Button, Box } from '@chakra-ui/react';
 
-import Countdown from 'react-countdown';
+import { useTimer } from 'use-timer'
 import { useRef, useState } from 'react'
 
 type PomodoroProps = {
@@ -15,52 +15,30 @@ type RendererProps = {
 
 const Pomodoro = ({ seconds }: PomodoroProps) => {
 
-    const [showStart, setShowStart] = useState<boolean>(true)
+    const [showButton, setShowButton] = useState<boolean>(true)
 
-    const clockRef = useRef<any>();
+    const { time, start, pause, reset } = useTimer({ initialTime: 100, timerType: 'DECREMENTAL' })
 
-    const handleStart = async () => {
-        await clockRef.current.start()
+    const formatTime = (time: number) => {
+        let minutes: number | string = Math.floor(time / 60)
+        let seconds: number | string = Math.floor(time - minutes * 60)
+
+        if (minutes <= 10) minutes = '0' + minutes
+        if (seconds <= 10) seconds = '0' + seconds
+        return minutes + ":" + seconds
     }
-
-    const handlePause = async () => {
-        await clockRef.current.pause()
-    }
-
-    const renderer = ({ hours, minutes, seconds }: RendererProps) => {
-        if (hours >= 1) {
-            return (
-                <span> {hours}:{minutes}:{seconds}</span>
-            )
-        }
-        if (seconds < 10) {
-            return (
-                <span> {minutes}:0{seconds} </span>
-            )
-        } else {
-            return (
-                <span> {minutes}:{seconds} </span>
-            )
-        }
-    }
-
-    
 
     return (
         <Flex fontSize="72px" fontWeight="medium" align="center" direction="column">
             <Box mb="15px">
-                <Countdown
-                    date={Date.now() + seconds * 1000}
-                    intervalDelay={3}
-                    zeroPadTime={2}
-                    autoStart={false}
-                    daysInHours={true}
-                    renderer={renderer}
-                    ref={clockRef}
-                />
+                {formatTime(time)}
             </Box>
-            <Button colorScheme='teal' size='lg' mb="10px" onClick={handleStart}> START </Button>
-            <Button colorScheme='teal' size='lg' mb="10px" onClick={handlePause}> PAUSE </Button> 
+            <Box onClick={() => setShowButton(prev => !prev)} display={showButton ? "flex" : "none"}>
+                <Button colorScheme='teal' size='lg' mb="10px" onClick={start}> START </Button>
+            </Box>
+            <Box onClick={() => setShowButton(prev => !prev)} display={showButton ? "none" : "flex"}>
+                <Button colorScheme='teal' size='lg' mb="10px" onClick={pause}> PAUSE </Button>
+            </Box>
         </Flex>
     );
 }
