@@ -7,15 +7,17 @@ import { useFormat } from '../hooks/useFormat';
 import { RxReload } from 'react-icons/rx'
 
 
-const Pomodoro = ({ minutes }: { minutes: number }) => {
+const Pomodoro = ({ minutes, setActiveTab }: { minutes: number, setActiveTab: (value: number) => void}) => {
 
     const [showButton, setShowButton] = useState<boolean>(true)
 
-    const { time, start, pause, reset } = useTimer({ initialTime: minutes * 60, timerType: 'DECREMENTAL', endTime: 0 })
+    const { time, start, pause, reset } = useTimer({ initialTime: minutes * 60, timerType: 'DECREMENTAL', endTime: 0, onTimeOver: () => setActiveTab(1) })
 
     const handleReset = () => {
-        reset()
-        setShowButton(prev => !prev)
+        if (time !== minutes * 60) {
+            reset()
+            setShowButton(prev => !prev)
+        }
     }
 
     return (
@@ -25,7 +27,7 @@ const Pomodoro = ({ minutes }: { minutes: number }) => {
             </Box>
             <Flex align="center" gap="12px">
 
-                <Box minH="56px" minW="56px">    
+                <Box minW="68px">
                 </Box>
 
                 <Box onClick={() => setShowButton(prev => !prev)} display={showButton ? "flex" : "none"}>
@@ -35,7 +37,7 @@ const Pomodoro = ({ minutes }: { minutes: number }) => {
                     <Button colorScheme='teal' size='lg' mb="10px" onClick={pause}> PAUSE </Button>
                 </Box>
 
-                <Box pl="12px" pb="12px" _hover={{color: "black"}} color="#777777">
+                <Box pl="12px" pb="12px" _hover={{ color: "black" }} color="#777777">
                     <Button onClick={handleReset}> <RxReload size={24} /> </Button>
                 </Box>
 

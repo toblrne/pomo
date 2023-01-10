@@ -3,13 +3,14 @@ import { Flex, Button, Box } from '@chakra-ui/react';
 import { useTimer } from 'use-timer'
 import { useState } from 'react'
 import { useFormat } from '../hooks/useFormat';
+import { setConstantValue } from 'typescript';
 
 
-const LongBreak = ({ minutes }: { minutes: number}) => {
+const LongBreak = ({ minutes, setActiveTab }: { minutes: number, setActiveTab: (value: number) => void}) => {
 
     const [showButton, setShowButton] = useState<boolean>(true)
 
-    const { time, start, pause, reset } = useTimer({ initialTime: minutes * 60, timerType: 'DECREMENTAL', endTime: 0 })
+    const { time, start, pause } = useTimer({ initialTime: minutes * 60, timerType: 'DECREMENTAL', endTime: 0, onTimeOver: () => setActiveTab(0)})
 
     return (
         <Flex align="center" direction="column">
