@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, Button, Flex, FormControl, FormHelperText, FormLabel, Input, useColorMode } from '@chakra-ui/react'
+import { Button, Flex, FormControl, FormLabel, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, useColorMode } from '@chakra-ui/react'
 
 type SettingsProps = {
     pomodoroTimer: number | undefined
@@ -21,17 +21,35 @@ const Settings = ({ pomodoroTimer, setPomodoroTimer, shortBreak, setShortBreak, 
             <Flex direction="row" gap="20px" >
                 <FormControl>
                     <FormLabel>Pomodoro</FormLabel>
-                    <Input type='number' variant="filled" value={pomodoroTimer || ''} onChange={(e) => setPomodoroTimer(Number(e.target.value)) }/>
+                    <NumberInput defaultValue={pomodoroTimer} min={0} max={90} step={0.5} variant="filled" value={pomodoroTimer} onChange={(valueAsNumber) => setPomodoroTimer(Number(valueAsNumber))}>
+                        <NumberInputField />
+                        <NumberInputStepper>
+                            <NumberIncrementStepper />
+                            <NumberDecrementStepper />
+                        </NumberInputStepper>
+                    </NumberInput>
                 </FormControl>
 
                 <FormControl>
                     <FormLabel>Short Break</FormLabel>
-                    <Input type='number' variant="filled" value={shortBreak || ''} onChange={(e) => setShortBreak(Number(e.target.value)) }/>
+                    <NumberInput defaultValue={shortBreak} min={0} max={90} step={0.5} variant="filled" value={shortBreak} onChange={(valueAsNumber) => setShortBreak(Number(valueAsNumber))}>
+                        <NumberInputField />
+                        <NumberInputStepper>
+                            <NumberIncrementStepper />
+                            <NumberDecrementStepper />
+                        </NumberInputStepper>
+                    </NumberInput>
                 </FormControl>
 
                 <FormControl>
                     <FormLabel>Long Break</FormLabel>
-                    <Input type='number' variant="filled" value={longBreak || ''} onChange={(e) => setLongBreak(Number(e.target.value)) }/>
+                    <NumberInput defaultValue={longBreak} min={0} max={90} step={0.5} variant="filled" value={longBreak} onChange={(valueAsNumber) => setLongBreak(Number(valueAsNumber))}>
+                        <NumberInputField />
+                        <NumberInputStepper>
+                            <NumberIncrementStepper />
+                            <NumberDecrementStepper />
+                        </NumberInputStepper>
+                    </NumberInput>
                 </FormControl>
             </Flex>
 
