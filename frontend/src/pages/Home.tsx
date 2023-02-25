@@ -21,10 +21,10 @@ const Home = ({ pomodoroTimer, shortBreak, longBreak }: { pomodoroTimer: number,
                 </TabList>
                 <TabPanels display="flex" justifyContent="center">
                     <TabPanel>
-                        <Pomodoro minutes={pomodoroTimer} setActiveTab={setActiveTab}/>
+                        <Pomodoro minutes={pomodoroTimer} activeTab={activeTab} setActiveTab={setActiveTab}/>
                     </TabPanel>
                     <TabPanel>
-                        <ShortBreak minutes={shortBreak} setActiveTab={setActiveTab}/>
+                        <ShortBreak minutes={shortBreak} activeTab={activeTab} setActiveTab={setActiveTab}/>
                     </TabPanel>
                     <TabPanel>
                         <LongBreak minutes={longBreak} setActiveTab={setActiveTab}/>

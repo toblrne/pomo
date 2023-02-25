@@ -21,7 +21,7 @@ const Settings = ({ pomodoroTimer, setPomodoroTimer, shortBreak, setShortBreak, 
             <Flex direction="row" gap="20px" >
                 <FormControl>
                     <FormLabel>Pomodoro</FormLabel>
-                    <NumberInput defaultValue={pomodoroTimer} min={0} max={90} step={0.5} variant="filled" value={pomodoroTimer} onChange={(valueAsNumber) => setPomodoroTimer(Number(valueAsNumber))}>
+                    <NumberInput defaultValue={pomodoroTimer} min={0} max={90} step={0.1} variant="filled" value={pomodoroTimer} onChange={(valueAsNumber) => setPomodoroTimer(Number(valueAsNumber))}>
                         <NumberInputField />
                         <NumberInputStepper>
                             <NumberIncrementStepper />
@@ -32,7 +32,7 @@ const Settings = ({ pomodoroTimer, setPomodoroTimer, shortBreak, setShortBreak, 
 
                 <FormControl>
                     <FormLabel>Short Break</FormLabel>
-                    <NumberInput defaultValue={shortBreak} min={0} max={90} step={0.5} variant="filled" value={shortBreak} onChange={(valueAsNumber) => setShortBreak(Number(valueAsNumber))}>
+                    <NumberInput defaultValue={shortBreak} min={0} max={90} step={1} variant="filled" value={shortBreak} onChange={(valueAsNumber) => setShortBreak(Number(valueAsNumber))}>
                         <NumberInputField />
                         <NumberInputStepper>
                             <NumberIncrementStepper />
@@ -43,7 +43,7 @@ const Settings = ({ pomodoroTimer, setPomodoroTimer, shortBreak, setShortBreak, 
 
                 <FormControl>
                     <FormLabel>Long Break</FormLabel>
-                    <NumberInput defaultValue={longBreak} min={0} max={90} step={0.5} variant="filled" value={longBreak} onChange={(valueAsNumber) => setLongBreak(Number(valueAsNumber))}>
+                    <NumberInput defaultValue={longBreak} min={0} max={90} step={1} variant="filled" value={longBreak} onChange={(valueAsNumber) => setLongBreak(Number(valueAsNumber))}>
                         <NumberInputField />
                         <NumberInputStepper>
                             <NumberIncrementStepper />
