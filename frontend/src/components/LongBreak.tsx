@@ -1,15 +1,28 @@
 import { Flex, Button, Box } from '@chakra-ui/react';
 
 import { useTimer } from 'use-timer'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useFormat } from '../hooks/useFormat';
 
 
-const LongBreak = ({ minutes, setActiveTab }: { minutes: number, setActiveTab: (value: number) => void}) => {
+const LongBreak = ({ minutes, activeTab, setActiveTab, sound }: { minutes: number, activeTab: number, setActiveTab: (value: number) => void, sound: any }) => {
 
     const [showButton, setShowButton] = useState<boolean>(true)
 
-    const { time, start, pause } = useTimer({ initialTime: minutes * 60, timerType: 'DECREMENTAL', endTime: 0, onTimeOver: () => setActiveTab(0)})
+    const { time, start, pause, reset } = useTimer({ initialTime: minutes * 60, timerType: 'DECREMENTAL', endTime: 0, onTimeOver: () => onTimeEnd() })
+    
+    useEffect(() => {
+        if (activeTab !== 2) {
+            pause()
+            setShowButton(true)
+        }
+    }, [activeTab])
+
+    const onTimeEnd = async () => {
+        await sound.play()
+        reset()
+        setActiveTab(0)
+    }
 
     return (
         <Flex align="center" direction="column">

@@ -5,21 +5,22 @@ import { useState, useEffect } from 'react'
 import { useFormat } from '../hooks/useFormat';
 
 import { RxReload } from 'react-icons/rx'
-import audio from './alarm.mp3'
 
 
-const Pomodoro = ({ minutes, activeTab, setActiveTab }: { minutes: number, activeTab: number, setActiveTab: (value: number) => void}) => {
+
+const Pomodoro = ({ minutes, activeTab, setActiveTab, sound }: { minutes: number, activeTab: number, setActiveTab: (value: number) => void, sound: any }) => {
 
     const [showButton, setShowButton] = useState<boolean>(true)
 
-    const sound = new Audio(audio)
 
-    const onTimeEnd = () => {
-        sound.play()
-        setActiveTab(1)
-    }
 
     const { time, start, pause, reset } = useTimer({ initialTime: minutes * 60, timerType: 'DECREMENTAL', endTime: 0, onTimeOver: () => onTimeEnd() })
+
+    const onTimeEnd = async () => {
+        await sound.play()
+        reset()
+        setActiveTab(1)
+    }
 
     const handleReset = () => {
         if (time !== minutes * 60) {
