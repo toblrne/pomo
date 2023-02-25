@@ -1,6 +1,6 @@
 ## Pomo [in development]
 
-Full-stack chrome extension built with Typescript, React.js, ChakraUI, Express.js, Node.js, Chart.js, and Auth0 (mockups in Figma)
+Full-stack chrome extension built with Typescript, React (ChakraUI), Express, Node, MongoDB, and Auth0
 
 Features:
 
