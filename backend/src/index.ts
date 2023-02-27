@@ -11,7 +11,6 @@ app.use(cors());
 
 const dotenv = require("dotenv").config()
 
-console.log(dotenv.parsed)
 
 const mongoURL = process.env.MONGO_URI
 
@@ -33,16 +32,15 @@ app.get("/", (req: Request, res: Response) => {
 })
 
 
-app.post("/register", async (req: Request, res: Response) => {
+app.post("/register", (req: Request, res: Response) => {
     const { userId } = req.body
-    try {
-        await users.create({
-            userId
-        })
+    users.create({
+        userId
+    }).then(() => {
         res.send({ "status": "OK" })
-    } catch (error) {
-        console.log(error)
-    }
+    }).catch((err: any) => {
+        console.log(err)
+    })
 })
 
 // app.get("/test", async (req: Request, res: Response) => {
