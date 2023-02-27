@@ -16,7 +16,7 @@ const ShortBreak = ({ minutes, activeTab, setActiveTab, sound }: { minutes: numb
             pause()
             setShowButton(true)
         }
-    }, [activeTab])
+    }, [activeTab, pause])
 
     const onTimeEnd = async () => {
         await sound.play()

@@ -16,7 +16,7 @@ const LongBreak = ({ minutes, activeTab, setActiveTab, sound }: { minutes: numbe
             pause()
             setShowButton(true)
         }
-    }, [activeTab])
+    }, [activeTab, pause    ])
 
     const onTimeEnd = async () => {
         await sound.play()

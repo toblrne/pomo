@@ -8,6 +8,7 @@ import { ColorModeScript } from '@chakra-ui/react'
 import theme from './theme'
 
 import { BrowserRouter } from 'react-router-dom';
+import { Auth0Provider } from "@auth0/auth0-react";
 
 
 const root = ReactDOM.createRoot(
@@ -17,7 +18,15 @@ root.render(
   <ChakraProvider>
     <ColorModeScript initialColorMode={theme.config.initialColorMode} />
     <BrowserRouter>
-      <App />
+      <Auth0Provider
+        domain="dev-6y0bdyh2adue8v00.us.auth0.com"
+        clientId="qWaiboyAjpn1kCSTZEzixfh5tDCDHKeX"
+        authorizationParams={{
+          redirect_uri: window.location.origin
+        }}
+      >
+        <App />
+      </Auth0Provider>
     </BrowserRouter>
   </ChakraProvider>
 );

@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Settings from './pages/Settings';
 import Statistics from './pages/Statistics';
 
+
 import { useState } from 'react'
 
 

@@ -34,7 +34,7 @@ const Pomodoro = ({ minutes, activeTab, setActiveTab, sound }: { minutes: number
             pause()
             setShowButton(true)
         }
-    }, [activeTab])
+    }, [activeTab, pause])
 
     return (
         <Flex align="center" direction="column">
