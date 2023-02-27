@@ -1,5 +1,6 @@
 import express, { Application, Request, Response } from 'express'
 
+
 const app: Application = express()
 const port = 4000
 const mongoose = require("mongoose")
@@ -8,7 +9,11 @@ app.use(express.json())
 const cors = require('cors');
 app.use(cors());
 
-const mongoURL = "mongodb+srv://ryangao:ZLWJf7vs5PH6WnyW@cluster0.hj4bjtj.mongodb.net/?retryWrites=true&w=majority"
+const dotenv = require("dotenv").config()
+
+console.log(dotenv.parsed)
+
+const mongoURL = process.env.MONGO_URI
 
 mongoose
     .connect(mongoURL, {
@@ -22,6 +27,11 @@ mongoose
 require("./schema")
 
 const users = mongoose.model("userInfo")
+
+app.get("/", (req: Request, res: Response) => {
+    res.send("Hello World")
+})
+
 
 app.post("/register", async (req: Request, res: Response) => {
     const { userId } = req.body
