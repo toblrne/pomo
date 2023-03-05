@@ -3,13 +3,20 @@ import { Flex, Button, Box } from '@chakra-ui/react';
 import { useTimer } from 'use-timer'
 import { useEffect, useState } from 'react'
 import { format } from '../hooks/format';
+import useStopwatch from '../hooks/useStopwatch';
 
 
 const ShortBreak = ({ minutes, activeTab, setActiveTab, sound }: { minutes: number, activeTab: number, setActiveTab: (value: number) => void, sound: any }) => {
 
     const [showButton, setShowButton] = useState<boolean>(true)
 
-    const { time, start, pause, reset } = useTimer({ initialTime: minutes * 60, timerType: 'DECREMENTAL', endTime: 0, onTimeOver: () => onTimeEnd() })
+    const onTimeEnd = async () => {
+        await sound.play()
+        reset()
+        setActiveTab(0)
+    }
+
+    const { time, start, pause, reset } = useStopwatch( minutes * 60, onTimeEnd)
 
     useEffect(() => {
         if (activeTab !== 1) {
@@ -18,11 +25,7 @@ const ShortBreak = ({ minutes, activeTab, setActiveTab, sound }: { minutes: numb
         }
     }, [activeTab, pause])
 
-    const onTimeEnd = async () => {
-        await sound.play()
-        reset()
-        setActiveTab(0)
-    }
+   
 
     return (
         <Flex align="center" direction="column">

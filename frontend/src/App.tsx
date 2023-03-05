@@ -16,6 +16,8 @@ function App() {
   const [shortBreak, setShortBreak] = useState<number>(5)
   const [longBreak, setLongBreak] = useState<number>(10)
 
+  const [cycle, setCycle] = useState<{start: string, end: string}>({start: "", end: ""})
+
   const { user, isAuthenticated } = useAuth0<User>();
 
   useEffect(() => {
@@ -50,7 +52,7 @@ function App() {
           user: "test2",
           timer: "shortBreak",
           time: shortBreak
-        }).then((res) => console.log("pomodoro timer updated"))
+        }).then((res) => console.log("short break updated"))
     }
   }, [shortBreak]) //eslint-disable-line
 
@@ -61,7 +63,7 @@ function App() {
           user: "test2",
           timer: "longBreak",
           time: longBreak
-        }).then((res) => console.log("pomodoro timer updated"))
+        }).then((res) => console.log("long break updated"))
     }
   }, [longBreak]) //eslint-disable-line
 
@@ -71,7 +73,7 @@ function App() {
         <Navbar />
         <Box>
           <Routes>
-            <Route path="/" element={<Home pomodoroTimer={pomodoroTimer} shortBreak={shortBreak} longBreak={longBreak} />} />
+            <Route path="/" element={<Home pomodoroTimer={pomodoroTimer} shortBreak={shortBreak} longBreak={longBreak} cycle={cycle} setCycle={setCycle}/>} />
             <Route path="/statistics" element={<Statistics />} />
             <Route path="/settings" element={<Settings pomodoroTimer={pomodoroTimer} setPomodoroTimer={setPomodoroTimer} shortBreak={shortBreak} setShortBreak={setShortBreak} longBreak={longBreak} setLongBreak={setLongBreak} user={user} isAuthenticated={isAuthenticated} />} />
             <Route path="*" element={<Navigate to="/" />} />

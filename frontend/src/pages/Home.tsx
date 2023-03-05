@@ -7,12 +7,20 @@ import ShortBreak from '../components/ShortBreak';
 import { useState, useEffect } from 'react';
 import audio from '../components/alarm.mp3'
 
-const Home = ({ pomodoroTimer, shortBreak, longBreak }: { pomodoroTimer: number, shortBreak: number, longBreak: number }) => {
+type Props = {
+    pomodoroTimer: number,
+    shortBreak: number,
+    longBreak: number,
+    cycle: {start: string, end: string},
+    setCycle: any
+}
+
+const Home = ({ pomodoroTimer, shortBreak, longBreak, cycle, setCycle }: Props) => {
 
     const [activeTab, setActiveTab] = useState<number>(0)
 
     const sound = new Audio(audio)
-    
+
     return (
         <Flex direction="column" align="center" justify="center" border="1px" borderColor="#d1d1d1" m="25px" borderRadius="12px" py="10px">
             <Tabs variant="unstyled" index={activeTab} onChange={(index) => setActiveTab(index)}>
@@ -23,13 +31,13 @@ const Home = ({ pomodoroTimer, shortBreak, longBreak }: { pomodoroTimer: number,
                 </TabList>
                 <TabPanels display="flex" justifyContent="center">
                     <TabPanel>
-                        <Pomodoro minutes={pomodoroTimer} activeTab={activeTab} setActiveTab={setActiveTab} sound={sound}/>
+                        <Pomodoro minutes={pomodoroTimer} activeTab={activeTab} setActiveTab={setActiveTab} sound={sound} cycle={cycle} setCycle={setCycle} />
                     </TabPanel>
                     <TabPanel>
-                        <ShortBreak minutes={shortBreak} activeTab={activeTab} setActiveTab={setActiveTab} sound={sound}/>
+                        <ShortBreak minutes={shortBreak} activeTab={activeTab} setActiveTab={setActiveTab} sound={sound} />
                     </TabPanel>
                     <TabPanel>
-                        <LongBreak minutes={longBreak} activeTab={activeTab} setActiveTab={setActiveTab} sound={sound}/>
+                        <LongBreak minutes={longBreak} activeTab={activeTab} setActiveTab={setActiveTab} sound={sound} />
                     </TabPanel>
                 </TabPanels>
             </Tabs>

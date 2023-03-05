@@ -1,12 +1,12 @@
 const mongoose = require("mongoose")
 
-const schema = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
     {
-        userId: String,
+        userId: { type: String },
         settings: {
-            pomodoro: Number,
-            shortBreak: Number,
-            longBreak: Number
+            pomodoro: { type: Number },
+            shortBreak: { type: Number },
+            longBreak: { type: Number }
         }
     },
     {
@@ -14,4 +14,23 @@ const schema = new mongoose.Schema(
     }
 )
 
-mongoose.model("userInfo", schema)
+mongoose.model("userInfo", userSchema)
+
+const logSchema = new mongoose.Schema(
+    {
+        startDate: { type: String },
+        endDate: { type: String },
+        userId: { type: String, index: true }
+    },
+    {
+        collection: "logs"
+    }
+)
+
+mongoose.model("logs", logSchema)
+
+
+
+// on start : set a start time in database
+// on Time End : set an end time in database
+// on reset : also set an end time in database

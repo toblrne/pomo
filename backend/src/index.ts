@@ -26,6 +26,7 @@ mongoose
 require("./schema")
 
 const users = mongoose.model("userInfo")
+const logs = mongoose.model("logs")
 
 app.get("/", (req: Request, res: Response) => {
     res.send("Hello World")
@@ -67,10 +68,21 @@ app.post("/updateSettings", (req: Request, res: Response) => {
         updateObject = { "settings.longBreak": time }
     }
 
-    users.findOneAndUpdate({ "userId": user }, updateObject, (err: any, response: any) => {
+    users.findOneAndUpdate({ "userId": user }, updateObject, { upsert: true }, (err: any, response: any) => {
         res.send(response)
     })
 })
+
+app.post("/testLog", (req: Request, res: Response) => {
+    logs.create({ startDate: "test", endDate: "test", userId: "test2" }).then(() => {
+        res.send({ "status": "OK" })
+    })
+})
+
+
+
+
+
 
 // app.post("/changeSettings", (req: Request, res: Response) => {
 //     const { type, user } = req.body

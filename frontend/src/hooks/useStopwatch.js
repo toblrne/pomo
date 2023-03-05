@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const useStopwatch = (initialTime = 0, onTimerEnd = () => {}) => {
+const useStopwatch = (initialTime = 0, onTimerEnd = () => {}, onTimerStart = () => {}, onTimerPause = () => {}) => {
   const [time, setTime] = useState(initialTime);
   const [isRunning, setIsRunning] = useState(false);
 
@@ -29,10 +29,12 @@ const useStopwatch = (initialTime = 0, onTimerEnd = () => {}) => {
 
   const start = () => {
     setIsRunning(true);
+    onTimerStart();
   };
 
   const pause = () => {
     setIsRunning(false);
+    onTimerPause();
   };
 
   const reset = () => {
