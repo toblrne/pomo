@@ -56,7 +56,7 @@ const Statistics = () => {
             {
                 user && isAuthenticated ?
                     <Box>
-                        {JSON.stringify(user)}
+                        {user.sub}
                     </Box> :
                     <Flex justify="center" paddingTop="100px">
                         Log in to view statistics!

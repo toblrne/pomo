@@ -1,10 +1,10 @@
 import { Flex, Button, Box } from '@chakra-ui/react';
 
-import { useTimer } from 'use-timer'
 import { useState, useEffect } from 'react'
-import { useFormat } from '../hooks/useFormat';
+import { format } from '../hooks/format';
 
 import { RxReload } from 'react-icons/rx'
+import useStopwatch from '../hooks/useStopwatch'
 
 
 
@@ -12,9 +12,7 @@ const Pomodoro = ({ minutes, activeTab, setActiveTab, sound }: { minutes: number
 
     const [showButton, setShowButton] = useState<boolean>(true)
 
-
-
-    const { time, start, pause, reset } = useTimer({ initialTime: minutes * 60, timerType: 'DECREMENTAL', endTime: 0, onTimeOver: () => onTimeEnd() })
+    const { time, start, pause, reset } = useStopwatch(minutes * 60, () => onTimeEnd)
 
     const onTimeEnd = async () => {
         await sound.play()
@@ -38,8 +36,10 @@ const Pomodoro = ({ minutes, activeTab, setActiveTab, sound }: { minutes: number
 
     return (
         <Flex align="center" direction="column">
+            {minutes}<br />
+            {time / 60}
             <Box mb="15px" fontSize="72px" fontWeight="medium">
-                {useFormat(time)}
+                {format(time)}
             </Box>
             <Flex align="center" gap="12px">
 

@@ -3,7 +3,6 @@ import { Flex } from '@chakra-ui/react';
 import { IoMdHome, IoMdStats, IoMdSettings } from 'react-icons/io'
 import FooterIcon from './FooterIcon'
 
-
 export type ColorObject = {
     color: string
 }

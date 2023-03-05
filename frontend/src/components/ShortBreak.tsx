@@ -2,7 +2,7 @@ import { Flex, Button, Box } from '@chakra-ui/react';
 
 import { useTimer } from 'use-timer'
 import { useEffect, useState } from 'react'
-import { useFormat } from '../hooks/useFormat';
+import { format } from '../hooks/format';
 
 
 const ShortBreak = ({ minutes, activeTab, setActiveTab, sound }: { minutes: number, activeTab: number, setActiveTab: (value: number) => void, sound: any }) => {
@@ -27,7 +27,7 @@ const ShortBreak = ({ minutes, activeTab, setActiveTab, sound }: { minutes: numb
     return (
         <Flex align="center" direction="column">
             <Box mb="15px" fontSize="72px" fontWeight="medium" >
-                {useFormat(time)}
+                {format(time)}
             </Box>
             <Box onClick={() => setShowButton(prev => !prev)} display={showButton ? "flex" : "none"}>
                 <Button colorScheme='teal' size='lg' mb="10px" onClick={start}> START </Button>
@@ -39,5 +39,5 @@ const ShortBreak = ({ minutes, activeTab, setActiveTab, sound }: { minutes: numb
     );
 }
 
-export default ShortBreak; 
+export default ShortBreak;
 

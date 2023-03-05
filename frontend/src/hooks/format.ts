@@ -1,4 +1,4 @@
-export const useFormat = (time: number) => {
+export const format = (time: number) => {
     let minutes: number | string = Math.floor(time / 60)
     let seconds: number | string = Math.floor(time - minutes * 60)
 

@@ -1,25 +1,20 @@
 import * as React from 'react';
 
-import { Flex, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react"
+import { Flex, Box, Tab, TabList, TabPanel, TabPanels, Tabs, Button } from "@chakra-ui/react"
 import Pomodoro from '../components/Pomodoro';
 import LongBreak from '../components/LongBreak';
 import ShortBreak from '../components/ShortBreak';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import audio from '../components/alarm.mp3'
-
-
-
 
 const Home = ({ pomodoroTimer, shortBreak, longBreak }: { pomodoroTimer: number, shortBreak: number, longBreak: number }) => {
 
     const [activeTab, setActiveTab] = useState<number>(0)
 
     const sound = new Audio(audio)
-
     
-
     return (
-        <Flex direction="column" align="center" justify="center" border="1px" m="25px" borderRadius="12px" py="10px">
+        <Flex direction="column" align="center" justify="center" border="1px" borderColor="#d1d1d1" m="25px" borderRadius="12px" py="10px">
             <Tabs variant="unstyled" index={activeTab} onChange={(index) => setActiveTab(index)}>
                 <TabList>
                     <Tab color="#777777" fontSize="15px" fontWeight="semibold" _selected={{ color: "#000000" }}> Pomodoro </Tab>
