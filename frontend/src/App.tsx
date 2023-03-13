@@ -13,8 +13,6 @@ import { useAuth0, User } from '@auth0/auth0-react';
 
 function App() {
 
-
-
   const [pomodoroTimer, setPomodoroTimer] = useState<number>(25)
   const [shortBreak, setShortBreak] = useState<number>(5)
   const [longBreak, setLongBreak] = useState<number>(10)
@@ -101,8 +99,6 @@ function App() {
         </Flex>
       </Flex>
     </Box>
-
-
   );
 }
 
