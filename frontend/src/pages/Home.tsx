@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import { Flex, Box, Tab, TabList, TabPanel, TabPanels, Tabs, Button } from "@chakra-ui/react"
+import { Flex, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react"
 import Pomodoro from '../components/Pomodoro';
 import LongBreak from '../components/LongBreak';
 import ShortBreak from '../components/ShortBreak';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import audio from '../components/alarm.mp3'
 
 

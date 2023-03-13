@@ -1,9 +1,6 @@
 import * as React from 'react';
 import { Button, Flex, FormControl, FormLabel, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, useColorMode } from '@chakra-ui/react'
-import axios from 'axios';
 
-import { useEffect } from 'react'
-import { NavLink } from 'react-router-dom';
 
 type Props = {
     pomodoroTimer: number | undefined
