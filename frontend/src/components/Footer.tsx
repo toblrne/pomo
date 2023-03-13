@@ -9,7 +9,7 @@ export type ColorObject = {
 
 const Footer = () => {
     return (
-        <Flex direction="row" align="center" justify="center" gap="100px" py="15px" px="30px" borderTop="1px" borderColor="#d1d1d1" marginTop="auto" >
+        <Flex direction="row" align="center" justify="center" gap="100px" py="15px" px="30px" borderTop="1px" borderColor="#d1d1d1">
             <FooterIcon icon={<IoMdHome size="36px" />} path="/" />
             <FooterIcon icon={<IoMdStats size="36px" />} path="/statistics" />
             <FooterIcon icon={<IoMdSettings size="36px" />} path="/settings" />

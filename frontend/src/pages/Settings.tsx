@@ -3,6 +3,7 @@ import { Button, Flex, FormControl, FormLabel, NumberDecrementStepper, NumberInc
 import axios from 'axios';
 
 import { useEffect } from 'react'
+import { NavLink } from 'react-router-dom';
 
 type Props = {
     pomodoroTimer: number | undefined
@@ -19,12 +20,12 @@ const Settings = ({ pomodoroTimer, setPomodoroTimer, shortBreak, setShortBreak, 
     const { colorMode, toggleColorMode } = useColorMode()
 
     return (
-        <Flex direction="column" align="start" m="20px" gap="15px">
+        <Flex direction="column" align="start" m="20px" gap="15px" h="360px">
             <Flex fontSize="18px" fontWeight="semibold"> Time (minutes)</Flex>
             <Flex direction="row" gap="20px" >
                 <FormControl>
                     <FormLabel>Pomodoro</FormLabel>
-                    <NumberInput defaultValue={pomodoroTimer} min={0} max={900} step={0.1} variant="filled" value={pomodoroTimer} onChange={(valueAsNumber) => setPomodoroTimer(Number(valueAsNumber))}>
+                    <NumberInput defaultValue={pomodoroTimer} min={0} max={120} step={1} variant="filled" value={pomodoroTimer} onChange={(valueAsNumber) => setPomodoroTimer(Number(valueAsNumber))}>
                         <NumberInputField />
                         <NumberInputStepper>
                             <NumberIncrementStepper />

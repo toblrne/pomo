@@ -7,11 +7,11 @@ import { RxReload } from 'react-icons/rx'
 import useStopwatch from '../hooks/useStopwatch'
 
 type Props = {
-    minutes: number, 
-    activeTab: number, 
-    setActiveTab: (value: number) => void, 
+    minutes: number,
+    activeTab: number,
+    setActiveTab: (value: number) => void,
     sound: any,
-    cycle: {start: string, end: string},
+    cycle: { start: string, end: string },
     setCycle: any
 }
 
@@ -28,33 +28,35 @@ const Pomodoro = ({ minutes, activeTab, setActiveTab, sound, cycle, setCycle }: 
         await sound.play()
         setActiveTab(1)
         reset()
-      };
-      
-      const onTimeStart = () => {
+    };
+
+    const onTimeStart = () => {
         console.log("start")
-        const date = new Date()
-        setCycle({start: date, end: ""})
-      };
-      
-      const onTimePause = () => {
+        const date = new Date().toString()
+        setCycle({ start: date, end: "" })
+    };
+
+    const onTimePause = () => {
         console.log("Finish")
-        const date = new Date()
-        setCycle({...cycle, end: date})
-      };
-      
-      const { time, start, pause, reset } = useStopwatch(minutes * 60, onTimeEnd, onTimeStart, onTimePause);
-      
-      useEffect(() => {
+        const date = new Date().toString()
+        setCycle({ ...cycle, end: date })
+    };
+
+    const { time, start, pause, reset } = useStopwatch(minutes * 60, onTimeEnd, onTimeStart, onTimePause);
+
+    useEffect(() => {
         if (activeTab !== 0) {
-          pause()
-          setShowButton(true)
+            pause()
+            setShowButton(true)
         }
-      }, [activeTab]);
+    }, [activeTab]);
 
     const handleReset = () => {
         if (time !== minutes * 60) {
             reset()
-            setShowButton(prev => !prev)
+            if (!showButton) {
+                setShowButton(prev => !prev)
+            }
         }
     }
 
@@ -70,7 +72,7 @@ const Pomodoro = ({ minutes, activeTab, setActiveTab, sound, cycle, setCycle }: 
                 <Box minW="68px">
                 </Box>
 
-                <Box onClick={() => {setShowButton(prev => !prev)}} display={showButton ? "flex" : "none"}>
+                <Box onClick={() => { setShowButton(prev => !prev) }} display={showButton ? "flex" : "none"}>
                     <Button colorScheme='teal' size='lg' mb="10px" onClick={start}> START </Button>
                 </Box>
                 <Box onClick={() => setShowButton(prev => !prev)} display={showButton ? "none" : "flex"}>

@@ -1,88 +1,144 @@
-import * as React from 'react';
 import { useAuth0, User } from "@auth0/auth0-react"
-import { Box, Flex, Button, Input, FormControl, FormHelperText, FormLabel } from '@chakra-ui/react';
+import { Box, Flex, Select } from '@chakra-ui/react';
 
-import { useState } from "react"
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js'
+
+import { Bar } from 'react-chartjs-2'
+
+import { useEffect, useState } from "react"
 import axios from 'axios';
+
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 const Statistics = () => {
 
+    const [chartData, setChartData] = useState<{ labels: any[], datasets: any[] }>({ labels: [], datasets: [] })
+    const [chartOptions, setChartOptions] = useState({})
+    const [resData, setResData] = useState([])
+    const [time, setTime] = useState<string>("week")
+    const [width, setWidth] = useState<number>(400)
+
     const { user, isAuthenticated, isLoading } = useAuth0<User>()
 
-    // const [state, setState] = useState({ username: "", password: "" })
+    const getPastWeek = (n: number) => {
+        const today = new Date();
+        const pastWeek = [];
+        for (let i = n; i >= 0; i--) {
+            const date = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+            pastWeek.push(`${month}-${day}`);
+        }
+        return pastWeek;
+    }
 
-    // const [data, setData] = useState()
+    const weekArray = getPastWeek(6)
+    const allTimeArray = getPastWeek(365)
 
-    // const handleNameChange = (e: any) => {
-    //     setState({ ...state, username: e.target.value })
-    // }
+    const getLabelArray = () => {
+        return time === "week" ? weekArray : allTimeArray;
+    }
 
-    // const handlePasswordChange = (e: any) => {
-    //     setState({ ...state, password: e.target.value })
-    // }
+    useEffect(() => {
+        if (isAuthenticated) {
+            axios.post('http://localhost:4000/displayData',
+                {
+                    user: user?.sub,
+                    type: time
+                })
+                .then((res) => {
+                    const x = res.data
+                    console.log(x)
+                    const y = x.map((item: { time: number }) => item.time / 3600)
+                    setResData(y)
+                    console.log("set response data!")
 
-    // const handleSubmit = (e: any) => {
-    //     e.preventDefault()
-    //     axios
-    //         .post('http://localhost:4000/register', {
-    //             username: state.username,
-    //             password: state.password
-    //         })
-    //         .then(response => {
-    //             console.log(response.data)
-    //         })    
-    //     console.log("Submitted!")
+                })
+        }
+    }, [isAuthenticated, time])
 
-    //     axios
-    //         .get('http://localhost:4000/test')
-    //         .then(res => {
-    //             console.log(res.data)
-    //             setData(res.data)
-    //         })
+    useEffect(() => {
+        if (isAuthenticated) {
+            setChartData({
+                labels: getLabelArray(),
+                datasets: [
+                    {
+                        data: resData,
+                        borderColor: "rgb(53, 162, 235)",
+                        backgroundColor: "rgba(53, 162, 235, 0.4)"
+                    }
+                ]
+            })
+            setChartOptions({
+                maintainAspectRatio: false,
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: "Hours Spent Per Day",
+                    },
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            display: true,
+                            stepSize: 2
 
-    //     console.log(data)
-    // }
+                        },
+                        suggestedMax: 12,
+                    },
+
+                }
+            })
+        }
+    }, [resData, isAuthenticated])
+
+    useEffect(() => {
+        if (chartData.labels.length > 7) {
+            setWidth(400 + ((chartData.labels.length - 7) * 30))
+        } else {
+            setWidth(400)
+        }
+    }, [chartData.labels.length])
+
+    console.log(width)
+
 
     if (isLoading) {
-        return <Box> Loading... </Box>
+        return <Flex h="400px" justify="center" align="center"> Loading... </Flex>
     }
 
 
     return (
-        <Box>
-            {/* {`${JSON.stringify(user)}`}
-            <Box></Box><Box></Box>
-            {`${JSON.stringify(isAuthenticated)}`} */}
-            {
-                user && isAuthenticated ?
-                    <Box>
-                        {user.sub}
-                    </Box> :
-                    <Flex justify="center" paddingTop="100px">
-                        Log in to view statistics!
-                    </Flex>
-            }
-
-            {/* <Button>
-                Click to add some data to database
-            </Button>
-            <form onSubmit={handleSubmit}>
-                <FormControl >
-                    <FormLabel>Username</FormLabel>
-                    <Input type='text' value={state.username} onChange={handleNameChange} />
-                    <FormLabel>Password</FormLabel>
-                    <Input type='password' value={state.password} onChange={handlePasswordChange} />
-                    <Button type="submit">
-                        Submit
-                    </Button>
-                </FormControl>
-            </form>
+        <Flex align="center" justify="center" direction="column" h="400px">
             <Box>
-                {data && JSON.stringify((data[0] as any).username)}
-            </Box> */}
-        </Box>
+                {user && isAuthenticated ?
+                    null :
+                    <Flex justify="center" minH="300px" h="340px" w="400px">
+                        Log in to view statistics!
+                    </Flex>}
+            </Box>
+            <Flex direction="column" h="340px" p="15px" justify="center" align="center">
+                <Select onChange={(e) => {
+                    setTime(e.target.value)
+                }}>
+                    <option value='week'>Weekly Stats</option>
+                    <option value='total'>All Time Stats</option>
+                </Select>
+                <Flex maxW="400px" overflowX={width > 400 ? "scroll" : "hidden"} h="340px" >
+                    <Flex minW={width} width="100%" direction="row-reverse">
+                        <Bar options={chartOptions} data={chartData} />
+                    </Flex>
+                </Flex>
 
+            </Flex>
+        </Flex>
     )
+
 }
 
 export default Statistics;
