@@ -122,7 +122,7 @@ const Statistics = () => {
                         Log in to view statistics!
                     </Flex>}
             </Box>
-            <Flex direction="column" h="340px" p="15px" justify="center" align="center">
+            {user && isAuthenticated ? <Flex direction="column" h="340px" p="15px" justify="center" align="center">
                 <Select onChange={(e) => {
                     setTime(e.target.value)
                 }}>
@@ -135,7 +135,7 @@ const Statistics = () => {
                     </Flex>
                 </Flex>
 
-            </Flex>
+            </Flex> : null}
         </Flex>
     )
 
