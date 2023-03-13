@@ -41,7 +41,7 @@ const Statistics = () => {
 
     useEffect(() => {
         if (isAuthenticated) {
-            axios.post('http://localhost:4000/displayData',
+            axios.post('https://pomo-22kr.onrender.com/displayData',
                 {
                     user: user?.sub,
                     type: time

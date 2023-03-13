@@ -27,7 +27,7 @@ function App() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      axios.post('http://localhost:4000/userData',
+      axios.post('https://pomo-22kr.onrender.com/userData',
         {
           type: "settings",
           user: user?.sub
@@ -41,7 +41,7 @@ function App() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      axios.post('http://localhost:4000/updateSettings',
+      axios.post('https://pomo-22kr.onrender.com/updateSettings',
         {
           user: user?.sub,
           timer: "pomodoro",
@@ -52,7 +52,7 @@ function App() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      axios.post('http://localhost:4000/updateSettings',
+      axios.post('https://pomo-22kr.onrender.com/updateSettings',
         {
           user: user?.sub,
           timer: "shortBreak",
@@ -63,7 +63,7 @@ function App() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      axios.post('http://localhost:4000/updateSettings',
+      axios.post('https://pomo-22kr.onrender.com/updateSettings',
         {
           user: user?.sub,
           timer: "longBreak",
@@ -75,7 +75,7 @@ function App() {
   useEffect(() => {
     if (isAuthenticated && cycle && cycle.end) {
       console.log(cycle)
-      axios.post('http://localhost:4000/updateLogs',
+      axios.post('https://pomo-22kr.onrender.com/updateLogs',
         {
           user: user?.sub,
           cycleStart: cycle.start,
