@@ -2,6 +2,8 @@
 
 Full-stack chrome extension built with Typescript, React (ChakraUI), Express, Node, MongoDB, and Auth0
 
+Check it out! https://pomo-frontend.onrender.com/
+
 Features:
 
 - Timed Pomodoro cycles with customizable durations
