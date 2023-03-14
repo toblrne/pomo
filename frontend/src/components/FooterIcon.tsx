@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-import { Box } from "@chakra-ui/react"
+import { Box, useColorModeValue } from "@chakra-ui/react"
 import { NavLink } from "react-router-dom"
 
 import type { ColorObject } from "./Footer"
@@ -12,19 +12,21 @@ type FooterIconProps = {
 
 const FooterIcon = ({ icon, path } : FooterIconProps) => {
 
+    const hoverColor = {
+        color: "#aeaeae"
+    }
+
     const [isHover, setIsHover] = useState<boolean>(false)
 
     const selectedColor = {
-        color: "#000000"
+        color: useColorModeValue("#000000", "#808080")
     }
 
     const unselectedColor = {
         color: "#d1d1d1"
     }
 
-    const hoverColor = {
-        color: "#aeaeae"
-    }
+    
 
     const pickStyle = ({ isActive }: { isActive: boolean }): ColorObject => {
         if (isActive) {
