@@ -22,7 +22,7 @@ const Settings = ({ pomodoroTimer, setPomodoroTimer, shortBreak, setShortBreak, 
             <Flex direction="row" gap="20px" >
                 <FormControl>
                     <FormLabel>Pomodoro</FormLabel>
-                    <NumberInput defaultValue={pomodoroTimer} min={0} max={120} step={0.011} variant="filled" value={pomodoroTimer} onChange={(valueAsNumber) => setPomodoroTimer(Number(valueAsNumber))}>
+                    <NumberInput defaultValue={pomodoroTimer} min={0} max={120} step={1} variant="filled" value={pomodoroTimer} onChange={(valueAsNumber) => setPomodoroTimer(Number(valueAsNumber))}>
                         <NumberInputField />
                         <NumberInputStepper>
                             <NumberIncrementStepper />
