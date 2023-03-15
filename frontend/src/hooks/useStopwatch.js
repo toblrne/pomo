@@ -42,11 +42,13 @@ const useStopwatch = (initialTime = 0, onTimerEnd = () => {}, onTimerStart = () 
     setIsRunning(false);
   };
 
-  const setTimeValue = (value) => {
+  const updateTime = (value) => {
     setTime(value);
   };
 
-  return { time, start, pause, reset, setTimeValue };
+  const formattedTime = new Date(time * 1000).toISOString().substr(11, 8).toLocaleString('en-US', { minimumIntegerDigits: 2 });
+
+  return { time, start, pause, reset, updateTime, formattedTime };
 };
 
 export default useStopwatch;

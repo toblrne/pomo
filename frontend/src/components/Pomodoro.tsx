@@ -18,11 +18,7 @@ type Props = {
     setCycle: any
 }
 
-
-
 const Pomodoro = ({ footerTab, minutes, activeTab, setActiveTab, sound, cycle, setCycle }: Props) => {
-
-    console.log(cycle)
 
     const [showButton, setShowButton] = useState<boolean>(true)
 
@@ -47,11 +43,11 @@ const Pomodoro = ({ footerTab, minutes, activeTab, setActiveTab, sound, cycle, s
         setCycle({ ...cycle, end: date });
     };
 
-    const { time, start, pause, reset } = useStopwatch(
+    const { time, start, pause, reset, updateTime } = useStopwatch(
         timeValue || minutes * 60,
         onTimeEnd,
         onTimeStart,
-        onTimePause
+        onTimePause,
     );
 
     useEffect(() => {
@@ -79,14 +75,33 @@ const Pomodoro = ({ footerTab, minutes, activeTab, setActiveTab, sound, cycle, s
         }
     }, [footerTab]);
 
-    const handleReset = () => {
-        if (time !== (timeValue || minutes * 60)) {
-            reset();
-            if (!showButton) {
-                setShowButton(prev => !prev);
+    useEffect(() => {
+        const cleanup = () => {
+            if (cycle.start !== "" && cycle.end === "") {
+                const date = new Date().toString();
+                setCycle({ ...cycle, end: date });
+                localStorage.setItem("cycle", JSON.stringify({ ...cycle, end: date }));
+            } else {
+                localStorage.setItem("cycle", JSON.stringify(cycle));
             }
+        };
+        return cleanup;
+    }, [cycle]);
+
+    useEffect(() => {
+        const savedCycle = localStorage.getItem("cycle");
+        if (savedCycle) {
+            setCycle(JSON.parse(savedCycle));
+        }
+    }, []);
+
+    const handleReset = () => {
+        updateTime(minutes * 60)
+        if (!showButton) {
+            setShowButton(prev => !prev);
         }
     };
+    
 
     return (
         <Flex align="center" direction="column">
