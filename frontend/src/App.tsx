@@ -16,6 +16,7 @@ function App() {
   const [pomodoroTimer, setPomodoroTimer] = useState<number>(25)
   const [shortBreak, setShortBreak] = useState<number>(5)
   const [longBreak, setLongBreak] = useState<number>(10)
+  const [footerTab, setFooterTab] = useState<number>(0)
 
   const [cycle, setCycle] = useState<{ start: string, end: string }>({ start: "", end: "" })
 
@@ -89,13 +90,13 @@ function App() {
           <Navbar />
           <Box>
             <Routes>
-              <Route path="/" element={<Home pomodoroTimer={pomodoroTimer} shortBreak={shortBreak} longBreak={longBreak} cycle={cycle} setCycle={setCycle} />} />
+              <Route path="/" element={<Home footerTab={footerTab} setFooterTab={setFooterTab} pomodoroTimer={pomodoroTimer} shortBreak={shortBreak} longBreak={longBreak} cycle={cycle} setCycle={setCycle} />} />
               <Route path="/statistics" element={<Statistics />} />
               <Route path="/settings" element={<Settings pomodoroTimer={pomodoroTimer} setPomodoroTimer={setPomodoroTimer} shortBreak={shortBreak} setShortBreak={setShortBreak} longBreak={longBreak} setLongBreak={setLongBreak} user={user} isAuthenticated={isAuthenticated} />} />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </Box>
-          <Footer />
+          <Footer footerTab={footerTab} setFooterTab={setFooterTab}/>
         </Flex>
       </Flex>
     </Box>

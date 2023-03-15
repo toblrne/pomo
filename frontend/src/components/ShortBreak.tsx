@@ -5,8 +5,12 @@ import { RxReload } from 'react-icons/rx';
 import { format } from '../hooks/format';
 import useStopwatch from '../hooks/useStopwatch';
 
+import { useLocation } from 'react-router-dom';
 
-const ShortBreak = ({ minutes, activeTab, setActiveTab, sound }: { minutes: number, activeTab: number, setActiveTab: (value: number) => void, sound: any }) => {
+
+const ShortBreak = ({ footerTab, setFooterTab, minutes, activeTab, setActiveTab, sound }: {
+    footerTab: number, setFooterTab: any, minutes: number, activeTab: number, setActiveTab: (value: number) => void, sound: any
+}) => {
 
     const [showButton, setShowButton] = useState<boolean>(true)
 
@@ -24,6 +28,12 @@ const ShortBreak = ({ minutes, activeTab, setActiveTab, sound }: { minutes: numb
             setShowButton(true)
         }
     }, [activeTab, pause])
+
+    let location = useLocation()
+
+    useEffect(() => {
+        pause()
+    }, [location]);
 
     const handleReset = () => {
         if (time !== minutes * 60) {

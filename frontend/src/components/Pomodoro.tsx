@@ -5,8 +5,11 @@ import { format } from '../hooks/format';
 
 import { RxReload } from 'react-icons/rx'
 import useStopwatch from '../hooks/useStopwatch'
+import { useLocation } from 'react-router-dom';
 
 type Props = {
+    footerTab: number,
+    setFooterTab: any,
     minutes: number,
     activeTab: number,
     setActiveTab: (value: number) => void,
@@ -17,48 +20,73 @@ type Props = {
 
 
 
-const Pomodoro = ({ minutes, activeTab, setActiveTab, sound, cycle, setCycle }: Props) => {
+const Pomodoro = ({ footerTab, minutes, activeTab, setActiveTab, sound, cycle, setCycle }: Props) => {
 
     console.log(cycle)
 
     const [showButton, setShowButton] = useState<boolean>(true)
 
+    const [timeValue, setTimeValue] = useState<number>(0);
+
     const onTimeEnd = async () => {
-        console.log("time end")
-        await sound.play()
-        setActiveTab(1)
-        reset()
+        console.log("time end");
+        await sound.play();
+        setActiveTab(1);
+        reset();
     };
 
     const onTimeStart = () => {
-        console.log("start")
-        const date = new Date().toString()
-        setCycle({ start: date, end: "" })
+        console.log("start");
+        const date = new Date().toString();
+        setCycle({ start: date, end: "" });
     };
 
     const onTimePause = () => {
-        console.log("Finish")
-        const date = new Date().toString()
-        setCycle({ ...cycle, end: date })
+        console.log("Finish");
+        const date = new Date().toString();
+        setCycle({ ...cycle, end: date });
     };
 
-    const { time, start, pause, reset } = useStopwatch(minutes * 60, onTimeEnd, onTimeStart, onTimePause);
+    const { time, start, pause, reset } = useStopwatch(
+        timeValue || minutes * 60,
+        onTimeEnd,
+        onTimeStart,
+        onTimePause
+    );
+
+    useEffect(() => {
+        const savedTimeValue = localStorage.getItem("timeValue");
+        if (savedTimeValue) {
+            setTimeValue(Number(savedTimeValue));
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem("timeValue", time.toString());
+    }, [time]);
 
     useEffect(() => {
         if (activeTab !== 0) {
-            pause()
-            setShowButton(true)
+            pause();
+            setShowButton(true);
         }
     }, [activeTab]);
 
+    useEffect(() => {
+        if (footerTab !== 0) {
+            pause();
+            setShowButton(true);
+        }
+    }, [footerTab]);
+
     const handleReset = () => {
-        if (time !== minutes * 60) {
-            reset()
+        if (time !== (timeValue || minutes * 60)) {
+            reset();
             if (!showButton) {
-                setShowButton(prev => !prev)
+                setShowButton(prev => !prev);
             }
         }
-    }
+    };
 
     return (
         <Flex align="center" direction="column">

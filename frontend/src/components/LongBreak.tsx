@@ -6,7 +6,7 @@ import useStopwatch from '../hooks/useStopwatch';
 import { RxReload } from 'react-icons/rx';
 
 
-const LongBreak = ({ minutes, activeTab, setActiveTab, sound }: { minutes: number, activeTab: number, setActiveTab: (value: number) => void, sound: any }) => {
+const LongBreak = ({ footerTab, setFooterTab, minutes, activeTab, setActiveTab, sound }: { footerTab: number, setFooterTab: any, minutes: number, activeTab: number, setActiveTab: (value: number) => void, sound: any }) => {
 
     const [showButton, setShowButton] = useState<boolean>(true)
 
@@ -24,6 +24,13 @@ const LongBreak = ({ minutes, activeTab, setActiveTab, sound }: { minutes: numbe
             setShowButton(true)
         }
     }, [activeTab, pause])
+
+    useEffect(() => {
+        if (footerTab !== 0) {
+            pause()
+            setShowButton(true)
+        }
+    }, [footerTab]);
 
     const handleReset = () => {
         if (time !== minutes * 60) {

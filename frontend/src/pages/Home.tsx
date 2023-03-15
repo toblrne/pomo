@@ -9,6 +9,8 @@ import audio from '../components/alarm.mp3'
 
 
 type Props = {
+    footerTab: number,
+    setFooterTab: any,
     pomodoroTimer: number,
     shortBreak: number,
     longBreak: number,
@@ -16,7 +18,7 @@ type Props = {
     setCycle: any
 }
 
-const Home = ({ pomodoroTimer, shortBreak, longBreak, cycle, setCycle }: Props) => {
+const Home = ({ footerTab, setFooterTab, pomodoroTimer, shortBreak, longBreak, cycle, setCycle }: Props) => {
 
     const [activeTab, setActiveTab] = useState<number>(0)
 
@@ -36,13 +38,13 @@ const Home = ({ pomodoroTimer, shortBreak, longBreak, cycle, setCycle }: Props) 
                 </TabList>
                 <TabPanels display="flex" justifyContent="center">
                     <TabPanel>
-                        <Pomodoro minutes={pomodoroTimer} activeTab={activeTab} setActiveTab={setActiveTab} sound={sound} cycle={cycle} setCycle={setCycle} />
+                        <Pomodoro footerTab={footerTab} setFooterTab={setFooterTab} minutes={pomodoroTimer} activeTab={activeTab} setActiveTab={setActiveTab} sound={sound} cycle={cycle} setCycle={setCycle} />
                     </TabPanel>
                     <TabPanel>
-                        <ShortBreak minutes={shortBreak} activeTab={activeTab} setActiveTab={setActiveTab} sound={sound} />
+                        <ShortBreak footerTab={footerTab} setFooterTab={setFooterTab} minutes={shortBreak} activeTab={activeTab} setActiveTab={setActiveTab} sound={sound} />
                     </TabPanel>
                     <TabPanel>
-                        <LongBreak minutes={longBreak} activeTab={activeTab} setActiveTab={setActiveTab} sound={sound} />
+                        <LongBreak footerTab={footerTab} setFooterTab={setFooterTab} minutes={longBreak} activeTab={activeTab} setActiveTab={setActiveTab} sound={sound} />
                     </TabPanel>
                 </TabPanels>
             </Tabs>
